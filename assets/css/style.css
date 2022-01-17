@@ -92,6 +92,16 @@
   font-size: 15px;
 }
 
+.next-btn {
+  line-height: 25px;
+  width: 10%;
+  border-radius: 8px;
+  background-color: rgb(216, 83, 216);
+  color: white;
+  float: right;
+  font-size: 15px;
+}
+
 .indicator {
   border-top: 2px solid lightgray;
   padding-top: 5px;

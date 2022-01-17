@@ -4,10 +4,10 @@ const questions = [
   {
     question: "Commonly used data types DO Not Include:",
     answers: [
-      { text: "1. strings", correct: false },
-      { text: "2. booleans", correct: false },
-      { text: "3. alerts", correct: true },
-      { text: "4. numbers", correct: false },
+      { option: "1. strings", correct: false },
+      { option: "2. booleans", correct: false },
+      { option: "3. alerts", correct: true },
+      { option: "4. numbers", correct: false },
     ],
   },
   {
@@ -70,13 +70,14 @@ var pageContentEl = document.querySelector(".page-content");
 var startPage = document.querySelector("#start-page");
 var quizPage = document.querySelector("#quiz-page");
 var startButton = document.getElementById("start-btn");
+var nextButton = document.getElementById("next-btn");
 
 //set and shuffle questions
 let shuffledQuestions, currentQuestionIndex;
 
 var setNextQuestion = function () {
   //remove start page
-  startPage.setAttribute("class", "hide");
+  startPage.classList.add("hide");
 
   showQuestion(shuffledQuestions[currentQuestionIndex]);
 };
@@ -86,7 +87,33 @@ var showQuestion = function (question) {
   questionEl.setAttribute("id", "question");
   questionEl.innerText = question.question;
   quizPage.appendChild(questionEl);
+
+  var answersEl = document.createElement("div");
+  answersEl.setAttribute("id", "answer-buttons");
+  answersEl.classList.add("btn-grid");
+
+  var nextButtonEl = document.createElement("button");
+  nextButtonEl.setAttribute("id", "next-btn");
+  nextButtonEl.classList.add("next-btn");
+  nextButtonEl.innerText = "Next";
+
+  question.answers.forEach((answer) => {
+    //create button for each choices
+    const button = document.createElement("button");
+    button.innerText = answer.option;
+    button.classList.add("btn");
+    //check if answer is correct
+    if (answer.correct) {
+      button.dataset.correct = answer.correct;
+    }
+    button.addEventListener("click", selectAnswer);
+    answersEl.appendChild(button);
+    quizPage.appendChild(answersEl);
+    quizPage.appendChild(nextButtonEl);
+  });
 };
+
+var selectAnswer = function () {};
 
 var startQuiz = function () {
   //start countdown
