@@ -1,4 +1,3 @@
-//questions
 //array of questions and answers
 const questions = [
   {
@@ -15,8 +14,8 @@ const questions = [
       "The condition in an if/else statement is enclosed with ___________.",
     answers: [
       { option: "1. quotes", correct: false },
-      { option: "2. curly brackets", correct: true },
-      { option: "3. parenthesis", correct: false },
+      { option: "2. curly brackets", correct: false },
+      { option: "3. parenthesis", correct: true },
       { option: "4. square brackets", correct: false },
     ],
   },
@@ -51,32 +50,40 @@ const questions = [
   },
 ];
 
-let button, nextButtonEl, quizPageEl, statusEl;
+//set variable for high scores
+var highscores = [];
+
+let button, nextButtonEl, quizPageEl, statusEl, userName, score;
 
 //set variable for timer
-var timerEl = document.querySelector("#timer");
-
-var time = 76,
+var time = 75,
   timer,
   counter = function () {
     time--;
     timerEl.innerHTML = time + " seconds remaining";
-    if (time <= 0 || timer < 1) {
-      timerEl.innerHTML = "Time's up!";
-    }
     timer = setTimeout(function () {
       counter();
     }, 1000);
+    if (time <= 0 || timer < 1) {
+      clearTimeout(timer);
+      timerEl.innerHTML = "Time's up!";
+      userName = prompt("The timer has ran out! Please enter your name:");
+      saveHighScore(userName);
+      highScorePage.appendChild(restartBtn);
+    }
   };
 
-//set variable for score
-var score = time;
-
-var pageContentEl = document.querySelector(".page-content");
+var pageContent = document.querySelector(".page-content");
+var timerEl = document.querySelector("#timer");
 var startPage = document.querySelector("#start-page");
 var quizPage = document.querySelector("#quiz-page");
+var highScorePage = document.querySelector("#high-scores");
+//buttons
+var viewHighScoreBtn = document.getElementById("high-score-btn");
 var startButton = document.getElementById("start-btn");
 var nextButton = document.getElementById("next-btn");
+var restartBtn = document.createElement("button");
+restartBtn.innerText = "Restart";
 
 //set and shuffle questions
 let shuffledQuestions, currentQuestionIndex;
@@ -85,8 +92,16 @@ var setNextQuestion = function () {
   //remove start page
   startPage.classList.add("hide");
 
+  //display quiz page
+  quizPage.classList.remove("hide");
+
   if (questions.length === currentQuestionIndex) {
-    console.log("show high score");
+    score = time;
+    userName = prompt(
+      `Congratulations! You have finished the quiz with a score of ${score}. Please enter your name`
+    );
+    saveHighScore(userName);
+    highScorePage.appendChild(restartBtn);
   } else {
     showQuestion(shuffledQuestions[currentQuestionIndex]);
   }
@@ -147,14 +162,12 @@ var selectAnswer = function (e) {
   statusEl.classList.add("indicator");
   if (!correct) {
     time -= 10;
-    score = time;
     selectedButton.classList.add("wrong");
     nextButtonEl.classList.remove("hide");
     statusEl.innerText = "Incorrect!";
     quizPageEl.appendChild(statusEl);
     console.log(time);
   } else {
-    console.log("correct");
     nextButtonEl.classList.remove("hide");
     selectedButton.classList.add("correct");
     statusEl.innerText = "Correct!";
@@ -162,9 +175,38 @@ var selectAnswer = function (e) {
   }
 };
 
+var showHighScore = function () {
+  //clear page
+  quizPage.classList.add("hide");
+  startPage.classList.add("hide");
+
+  //stop timer
+  clearTimeout(timer);
+  timerEl.innerHTML = "";
+
+  //display high score page
+  highScorePage.classList.remove("hide");
+  if (restartBtn) {
+    restartBtn.addEventListener("click", startQuiz);
+  }
+  restartBtn.innerText = "Start quiz";
+  highScorePage.appendChild(restartBtn);
+};
+
+var saveHighScore = function (userName) {
+  highscores.push({ name: userName, score: score });
+  console.log(highscores);
+  showHighScore();
+};
+
 var startQuiz = function () {
   //start countdown
+  time = 75;
   counter();
+
+  //remove start page
+  startPage.classList.add("hide");
+  highScorePage.classList.add("hide");
 
   //suffle questions
   shuffledQuestions = questions.sort(() => Math.random() - 0.5);
@@ -175,3 +217,4 @@ var startQuiz = function () {
 };
 
 startButton.addEventListener("click", startQuiz);
+viewHighScoreBtn.addEventListener("click", showHighScore);

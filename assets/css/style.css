@@ -14,7 +14,7 @@
   width: 50%;
 }
 
-.header h1 {
+.header p {
   font-size: 18px;
   color: purple;
 }
@@ -122,19 +122,6 @@
   width: 600px;
   max-width: 80%;
   margin: 0 auto;
-}
-
-#high-score-container h1 {
-  margin-bottom: 10px;
-}
-
-.initials-input {
-  display: flex;
-  padding-top: 10px;
-}
-
-.initials-input p {
-  font-size: 20px;
 }
 
 .hide {
