@@ -112,7 +112,7 @@ if (savedHighScores) {
 let button, nextButtonEl, quizPageEl, statusEl, userName, score;
 
 //set variable for timer
-var time = 75,
+var time = 121,
   timer,
   counter = function () {
     time--;
@@ -278,7 +278,7 @@ var saveHighScore = function (userName) {
 
 var startQuiz = function () {
   //start countdown
-  time = 75;
+  time = 121;
   counter();
 
   //reset quiz page
