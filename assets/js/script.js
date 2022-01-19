@@ -52,6 +52,12 @@ const questions = [
 
 //set variable for high scores
 var highscores = [];
+var savedHighScores = localStorage.getItem("highscores");
+savedHighScores = JSON.parse(savedHighScores);
+
+if (savedHighScores) {
+  highscores = savedHighScores;
+}
 
 let button, nextButtonEl, quizPageEl, statusEl, userName, score;
 
@@ -166,7 +172,6 @@ var selectAnswer = function (e) {
     nextButtonEl.classList.remove("hide");
     statusEl.innerText = "Incorrect!";
     quizPageEl.appendChild(statusEl);
-    console.log(time);
   } else {
     nextButtonEl.classList.remove("hide");
     selectedButton.classList.add("correct");
@@ -184,18 +189,40 @@ var showHighScore = function () {
   clearTimeout(timer);
   timerEl.innerHTML = "";
 
+  var highScoreEl = highScorePage.querySelector("ul");
+
+  //limit shown high score to 5 and sort from highest to lowest
+  if (highscores) {
+    highscores = highscores.slice(0, 10);
+
+    highscores = highscores.sort(function (a, b) {
+      return b.score - a.score;
+    });
+  }
+
   //display high score page
   highScorePage.classList.remove("hide");
+  highScoreEl.innerHTML = "";
+
   if (restartBtn) {
     restartBtn.addEventListener("click", startQuiz);
+    restartBtn.innerText = "Start Quiz";
   }
-  restartBtn.innerText = "Start quiz";
+
+  if (highscores.length === 0) {
+    highScoreEl.innerHTML = "No saved scores.";
+  } else {
+    for (var i = 0; i < highscores.length; i++) {
+      highScoreEl.innerHTML += `<li>${highscores[i].name} - ${highscores[i].score}</li>`;
+    }
+  }
+
   highScorePage.appendChild(restartBtn);
 };
 
 var saveHighScore = function (userName) {
   highscores.push({ name: userName, score: score });
-  console.log(highscores);
+  localStorage.setItem("highscores", JSON.stringify(highscores));
   showHighScore();
 };
 
@@ -203,6 +230,9 @@ var startQuiz = function () {
   //start countdown
   time = 75;
   counter();
+
+  //reset quiz page
+  quizPage.innerHTML = "";
 
   //remove start page
   startPage.classList.add("hide");
