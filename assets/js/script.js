@@ -48,6 +48,56 @@ const questions = [
       { option: "4. console.log", correct: true },
     ],
   },
+  {
+    question:
+      "Which built-in method combines the text of two strings and returns a new string?",
+    answers: [
+      { option: "1. append()", correct: false },
+      { option: "2. concat()", correct: true },
+      { option: "3. attach()", correct: false },
+      { option: "4. None of the above.", correct: false },
+    ],
+  },
+  {
+    question:
+      "Which built-in method returns the characters in a string beginning at the specified location?",
+    answers: [
+      { option: "1. substr()", correct: true },
+      { option: "2. getSubstring()", correct: false },
+      { option: "3. slice()", correct: false },
+      { option: "4. None of the above.", correct: false },
+    ],
+  },
+  {
+    question:
+      "Which of the following function of String object is used to find a match between a regular expression and a string, and to replace the matched substring with a new substring?",
+    answers: [
+      { option: "1. concat()", correct: false },
+      { option: "2. match()", correct: false },
+      { option: "3. replace()", correct: true },
+      { option: "4. search()", correct: false },
+    ],
+  },
+  {
+    question:
+      "Which of the following function of String object creates a string to be displayed in a big font as if it were in a <big> tag?",
+    answers: [
+      { option: "1. anchor()", correct: false },
+      { option: "2. big()", correct: true },
+      { option: "3. blink()", correct: false },
+      { option: "4. italics()", correct: false },
+    ],
+  },
+  {
+    question:
+      "Which of the following function of Array object returns a string representing the array and its elements?",
+    answers: [
+      { option: "1. toSource()", correct: false },
+      { option: "2. sort()", correct: false },
+      { option: "3. splice()", correct: false },
+      { option: "4. toString()", correct: true },
+    ],
+  },
 ];
 
 //set variable for high scores
