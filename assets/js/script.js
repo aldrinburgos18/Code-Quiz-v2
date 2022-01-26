@@ -107,6 +107,8 @@ savedHighScores = JSON.parse(savedHighScores);
 
 if (savedHighScores) {
   highscores = savedHighScores;
+} else {
+  highscores = [];
 }
 
 let button, nextButtonEl, quizPageEl, statusEl, userName, score;
@@ -225,6 +227,7 @@ var selectAnswer = function (e) {
   } else {
     nextButtonEl.classList.remove("hide");
     selectedButton.classList.add("correct");
+    time += 3;
     statusEl.innerText = "Correct!";
     quizPageEl.appendChild(statusEl);
   }
@@ -244,7 +247,6 @@ var showHighScore = function () {
   //limit shown high score to 5 and sort from highest to lowest
   if (highscores) {
     highscores = highscores.slice(0, 10);
-
     highscores = highscores.sort(function (a, b) {
       return b.score - a.score;
     });
