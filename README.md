@@ -6,7 +6,7 @@
 
 A timed coding quiz with multiple-choice questions featuring a dynamically updated HTML and CSS powered by JavaScript.
 
-**Link to Deployed Application:** [https://aldrinburgos18.github.io/Random-Password-Generator/](https://aldrinburgos18.github.io/Random-Password-Generator/)
+**Link to Deployed Application:** [https://aldrinburgos18.github.io/Code-Quiz-v2/](https://aldrinburgos18.github.io/Code-Quiz-v2/)
 
 ## Table of Contents
 
